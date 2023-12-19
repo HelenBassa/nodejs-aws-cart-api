@@ -10,10 +10,10 @@ export class CdkStack extends cdk.Stack {
     super(scope, id, props);
 
     const environment = {
-      DB_URL: process.env.DB_URL!,
+      DB_HOST: process.env.DB_HOST!,
       DB_PORT: process.env.DB_PORT!,
-      DB_DATABASE: process.env.DB_DATABASE!,
-      DB_USER: process.env.DB_USER!,
+      DB_DATABASE_NAME: process.env.DB_DATABASE_NAME!,
+      DB_USERNAME: process.env.DB_USERNAME!,
       DB_PASSWORD: process.env.DB_PASSWORD!,
     };
 
@@ -23,6 +23,7 @@ export class CdkStack extends cdk.Stack {
       entry: path.resolve(__dirname, '..', '..', 'dist', 'main.js'),
       functionName: 'cartApiHandler',
       timeout: cdk.Duration.seconds(30),
+      memorySize: 1024,
     });
 
     const api = new apiGw.LambdaRestApi(this, 'cart-api', {
