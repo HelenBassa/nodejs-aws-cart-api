@@ -1,0 +1,10 @@
+Dockerfile
+.dockerignore
+docker-compose
+node_modules
+npm-debug.log
+dist
+.gitignore
+.env
+cdk.out
+cdk
