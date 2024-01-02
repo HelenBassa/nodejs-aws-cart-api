@@ -1,17 +1,29 @@
-Dockerfile
-.dockerignore
+# Dependencies will be installed in Docker
 node_modules
 npm-debug.log
+
+# Build will be created in Docker
 dist
+
+# AWS CDK logic is not used in the application
+cdk
+cdk.json
+cdk.out
+
+# Tests is not used in the application
+test
+
+# For security reasons
+.env
+
+# This is not used in the application
+README.md
+
+Dockerfile
+.dockerignore
 .elasticbeanstalk
 .gitignore
-.env
-cdk.out
-cdk
-test
 .eslintrc.js
 .prettierrc
-cdk.json
 script.sql
 webpack.config.js
-README.md
