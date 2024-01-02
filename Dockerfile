@@ -13,7 +13,8 @@ WORKDIR /usr/src/app
 COPY --chown=node:node package*.json ./
 
 # Install app dependencies using the `npm ci` command instead of `npm install`
-RUN npm ci
+# RUN npm ci
+RUN npm ci --production && npm install rimraf --save-dev && npm cache clean --force
 
 # Bundle app source
 COPY --chown=node:node . .
@@ -43,7 +44,8 @@ RUN npm run build
 ENV NODE_ENV production
 
 # Running `npm ci` removes the existing node_modules directory and passing in --only=production ensures that only the production dependencies are installed. This ensures that the node_modules directory is as optimized as possible
-RUN npm ci --only=production && npm cache clean --force
+# RUN npm ci --only=production && npm cache clean --force
+RUN npm ci --production && npm cache clean --force
 
 USER node
 
@@ -60,6 +62,11 @@ COPY --chown=node:node --from=build /usr/src/app/dist ./dist
 EXPOSE 4000
 
 ENV PORT=4000
+
+ENV DB_HOST=rds-database.cobx1nsb5loc.us-east-1.rds.amazonaws.com
+ENV DB_USERNAME=postgres
+ENV DB_PASSWORD=23091987
+ENV DB_DATABASE_NAME=postgres
 
 # Start the server using the production build
 CMD [ "node", "dist/main.js" ]
